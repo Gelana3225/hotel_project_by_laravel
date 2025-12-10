@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Models\Room;
 
+use App\Models\Booking;
+
+use App\Models\Galery;
+
 class AdminController extends Controller
 {
     public function index()
@@ -39,7 +43,9 @@ class AdminController extends Controller
     {
         $room = Room::all();
 
-        return view('home.index', compact('room'));
+        $gallery = Galery::all();
+
+        return view('home.index', compact('room','gallery'));
     }
 
     public function create_room()
@@ -127,5 +133,75 @@ class AdminController extends Controller
 
          return redirect()->back();
     }
-}
 
+    public function bookings()
+    {
+        $data=Booking::all();
+        return view('admin.booking', compact('data'));
+    }
+
+    public function delete_booking($id)
+    {
+        $data=Booking::find($id);
+
+        $data->delete();
+
+        return redirect()->back();
+    }
+
+    public function approve_book($id)
+    {
+
+        $booking = Booking::find($id);
+        $booking->status='approve';
+        $booking->save();
+        
+        return redirect()->back();
+    }
+
+    public function reject_book($id)
+    {
+        $booking = Booking::find($id);
+        $booking->status='rejected';
+        $booking->save();
+        
+        return redirect()->back();
+    }
+
+    public function view_gallery()
+    {
+        $gallery = Galery::all();
+
+        return view('admin.gallery',compact('gallery'));
+    }
+
+    public function upload_gallery(Request $request)
+    {
+        $data = new Galery;
+
+        $image = $request->image;
+
+        if($image)
+        {
+            $imagename=time().'.'.$image->getClientOriginalExtension();
+            $request->image->move('gallery',$imagename);
+            $data->image = $imagename;
+
+            $data->save();
+
+            return redirect()->back();
+        }
+
+    }
+
+    public function delete_gallery($id)
+    {
+        $data = Galery::find($id);
+
+        $data->delete();
+
+        return redirect()->back();
+    }
+
+
+}
