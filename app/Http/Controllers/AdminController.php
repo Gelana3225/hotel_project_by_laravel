@@ -14,6 +14,14 @@ use App\Models\Booking;
 
 use App\Models\Galery;
 
+use App\Models\Contact;
+
+use Notification;
+
+use App\Notifications\SendEmailNotification;
+use Illuminate\Notifications\Notification as NotificationsNotification;
+use Illuminate\Support\Facades\Notification as FacadesNotification;
+
 class AdminController extends Controller
 {
     public function index()
@@ -24,7 +32,8 @@ class AdminController extends Controller
             if($usertype =='user')
             {
                 $room = Room::all();
-                return view('home.index',compact('room'));
+                $gallery = Galery::all();
+                return view('home.index',compact('room','gallery'));
             }
 
             else if($usertype =='admin')
@@ -199,6 +208,44 @@ class AdminController extends Controller
         $data = Galery::find($id);
 
         $data->delete();
+
+        return redirect()->back();
+    }
+    public function all_messages()
+    {
+        $data = Contact::all();
+        return view('admin.all_messages', compact('data'));
+    }
+
+    public function send_mail($id)
+    {
+
+        $data = Contact::find($id);
+
+        return view('admin.send_mail',compact('data'));
+    }
+
+    public function mail(Request $request,$id)
+    {
+        $data = Contact::find($id);
+
+        $details = [
+
+            'greeting' => $request->greeting ,
+
+            'body' => $request->body ,
+
+            'action_text' => $request->greeting ,
+
+            'action_url' => $request->action_url ,
+
+            'endline' => $request->endline ,
+
+
+
+        ];
+
+        Notification::send($data,new SendEmailNotification($details));
 
         return redirect()->back();
     }

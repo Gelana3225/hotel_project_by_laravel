@@ -26,6 +26,10 @@
                 <li>
                   <a href="{{ url('view_gallery') }}"> <i class="icon-home"></i>Gallery</a>
                 </li>
+
+                <li>
+                  <a href="{{ url('all_messages') }}"> <i class="icon-home"></i>Messages</a>
+                </li>
                 
         </ul>
       </nav>
