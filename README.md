@@ -1,9 +1,5 @@
 # Hotel Management System (Laravel 9)
 
-<!-- > **If the README doesn't show on GitHub:** Your repo's **default branch** might be `main` while your code is on `master`. In GitHub: **Settings → General → Default branch** → switch to `master` and save. The README at the repo root will then appear on the homepage. -->
-
----
-
 Laravel-based hotel management application with a public booking website and an admin dashboard to manage rooms, reservations, gallery images, and customer messages.
 
 ## Key Goals
