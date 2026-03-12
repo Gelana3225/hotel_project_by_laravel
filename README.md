@@ -1,36 +1,73 @@
-# Hotel Management System (Laravel 9)
+# Hotel Management System – Laravel 9
 
-Laravel-based hotel management application with a public booking website and an admin dashboard to manage rooms, reservations, gallery images, and customer messages.
+Hotel Management System is a Laravel 9–based web application that provides a modern public website for guests and a secure back‑office dashboard for hotel staff. It streamlines the management of rooms, reservations, image galleries, and customer communication in a single, cohesive platform.
 
-## Key Goals
+## Overview
 
-- **For guests**: Browse hotel rooms, view details and photos, check availability by date, and request bookings or send inquiries.
-- **For admins**: Manage rooms, confirm or reject bookings, maintain a gallery, and respond to customer messages via email from a central dashboard.
+- **Public site (guests)**: Discover rooms, explore the hotel gallery, view detailed room information, check availability by date, and submit booking or contact requests.
+- **Admin dashboard (staff)**: Maintain the room catalog, review and manage bookings, curate gallery images, and respond to guest messages directly via email.
+
+This project is suitable as a **production-ready starter**, **portfolio piece**, or **learning resource** for Laravel and hotel/booking workflows.
 
 ---
 
-## Features
+## Core Features
 
 ### Guest-Facing Website
 
-- **Home page** (`/`): Displays featured **rooms** and **gallery** images.
-- **Room listing** (`/our_rooms`): Shows all available rooms with title, type, price, and Wi-Fi availability.
-- **Room details & booking** (`/room_details/{id}`): Detailed view and booking form with date-range availability check to prevent double-booking.
-- **Gallery** (`/hotel_gallary`): Hotel gallery images.
-- **Contact** (`/hotel_contact`): Contact form; messages stored and reply-by-email from admin.
+- **Home page** (`/`)
+  - Highlights selected rooms and gallery items.
+  - Uses live data from the `rooms` and `galeries` tables.
+- **Rooms listing** (`/our_rooms`)
+  - Displays all available rooms with title, type, price, and Wi‑Fi availability.
+- **Room details & booking** (`/room_details/{id}`)
+  - Dedicated detail page for each room.
+  - Booking form that captures guest details and stay dates.
+  - Date‑range conflict checking to prevent double‑booking of the same room.
+- **Gallery** (`/hotel_gallary`)
+  - Visual overview of the hotel via administratively managed images.
+- **Contact page** (`/hotel_contact` + POST `/contact`)
+  - Contact form for general inquiries.
+  - Stores messages in the `contacts` table and returns a success notification to the guest.
 
 ### Admin Dashboard
 
-- **Rooms**: Create, edit, delete rooms; upload room images.
-- **Bookings**: List, approve, reject, or delete bookings (protected by `auth` + `admin` middleware).
-- **Gallery**: Upload and delete gallery images.
-- **Messages**: View contact submissions and send email replies via Laravel notifications.
+- **Rooms management**
+  - Create, update, and delete rooms, including:
+    - Title, description, price, Wi‑Fi flag, room type.
+    - Image upload with files stored in `public/room`.
+  - View a tabular list of all rooms.
+- **Bookings management**
+  - View all bookings with guest details and date ranges.
+  - Approve or reject bookings to control room allocation.
+  - Delete bookings when necessary (e.g., test data or cancellations).
+- **Gallery management**
+  - Upload and remove images displayed on guest‑facing pages.
+  - Files stored in `public/gallery`.
+- **Contact messages & email replies**
+  - View all messages submitted from the contact form.
+  - Use a dedicated form to send email responses per contact record.
+  - Leverages Laravel’s notification system (`SendEmailNotification`) for outbound email.
 
-### Tech Stack
+### Technology Stack
 
-- **Backend**: PHP ^8.0.2, Laravel ^9.19, Jetstream, Sanctum, Livewire.
-- **Frontend**: Blade, Tailwind CSS, Alpine.js, Vite.
-- **Auth**: Registration, login, 2FA (Jetstream/Fortify). User roles: `user` | `admin` via `usertype` on `users` table.
+- **Backend**
+  - PHP **^8.0.2**
+  - Laravel **^9.19**
+  - Laravel Jetstream, Fortify, and Sanctum for authentication and security.
+  - Livewire for reactive components where needed.
+- **Frontend**
+  - Blade templates for layouts and pages.
+  - Tailwind CSS and Alpine.js for styling and lightweight interactivity.
+  - Vite for asset bundling and hot reloading during development.
+- **Database**
+  - MySQL/MariaDB (or any Laravel‑supported database).
+  - Core tables: `users`, `rooms`, `bookings`, `galeries`, `contacts`, plus Jetstream/Fortify support tables.
+- **Authentication & Authorization**
+  - Standard registration, login, password reset, and optional 2FA.
+  - User roles via `usertype` field:
+    - `user` – regular guest account.
+    - `admin` – back‑office / dashboard access.
 
 ---
 
@@ -38,41 +75,60 @@ Laravel-based hotel management application with a public booking website and an 
 
 ### Prerequisites
 
-- PHP >= 8.0.2, Composer, MySQL/MariaDB, Node.js (for assets).
+- PHP **>= 8.0.2**
+- Composer
+- MySQL or MariaDB
+- Node.js (LTS) and npm (for frontend assets)
 
 ### Installation
 
 ```bash
-git clone <repo-url> hotel_project_by_laravel
+git clone <REPOSITORY_URL> hotel_project_by_laravel
 cd hotel_project_by_laravel
+
 composer install
-cp .env.example .env
+
+cp .env.example .env   # On Windows PowerShell: copy .env.example .env
 php artisan key:generate
-# Set DB_DATABASE, DB_USERNAME, DB_PASSWORD in .env
+
+# Configure your database connection in .env:
+# DB_DATABASE, DB_USERNAME, DB_PASSWORD
 php artisan migrate
-npm install && npm run dev
+
+npm install
+npm run dev            # or: npm run build for production assets
+
 php artisan serve
 ```
 
-Open `http://127.0.0.1:8000`.
+Then open `http://127.0.0.1:8000` in your browser.
 
-### Create an Admin
+### Creating an Admin User
 
-1. Register at `/register`.
-2. In the database, set that user's `usertype` to `admin`.
-3. Log in; admins are redirected to the dashboard, users to the public site.
+1. Visit `/register` and create a user account.
+2. In your database, update that user’s `usertype` field to `admin`.
+3. Log in:
+   - `admin` accounts are redirected to the admin dashboard.
+   - `user` accounts are redirected to the public website.
 
 ---
 
-## Project Structure (Key Parts)
+## Project Structure (Key Components)
 
-- **Routes**: `routes/web.php` — all web routes.
-- **Controllers**: `AdminController` (dashboard, rooms, bookings, gallery, messages, mail), `HomeController` (room details, booking, contact, public pages).
-- **Models**: `Room`, `Booking`, `Galery`, `Contact`, `User`.
-- **Views**: `resources/views/home/*` (public), `resources/views/admin/*` (dashboard), `resources/views/auth/*` (Jetstream).
+- **Routes**
+  - `routes/web.php` – public pages, booking actions, contact form, and admin endpoints.
+- **Controllers**
+  - `AdminController` – admin dashboard, rooms CRUD, bookings, gallery management, messages, and outbound email.
+  - `HomeController` – guest‑facing workflows (room details, booking, contact form, public pages).
+- **Models**
+  - `Room`, `Booking`, `Galery`, `Contact`, `User` – encapsulate the domain for rooms, reservations, gallery images, contact messages, and users.
+- **Views**
+  - `resources/views/home/*` – guest‑facing pages and partials.
+  - `resources/views/admin/*` – admin layout and management screens.
+  - `resources/views/auth/*` – Jetstream/Fortify authentication views.
 
 ---
 
 ## License
 
-MIT (see `composer.json`).
+This project is open‑source software licensed under the **MIT license** (see `composer.json` for details).
