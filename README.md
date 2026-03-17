@@ -2,11 +2,15 @@
 
 Hotel Management System is a Laravel 9–based web application that provides a modern public website for guests and a secure back‑office dashboard for hotel staff. It streamlines the management of rooms, reservations, image galleries, and customer communication in a single, cohesive platform.
 
-> _Use this section to quickly understand what the project is about and who it is for._
+<!--
+Clarity note: This section should quickly explain what the project is and who it is for.
+-->
 
 ## Overview
 
-> _High‑level summary of the main user groups and typical usage scenarios._
+<!--
+Clarity note: High‑level summary of the main user groups and typical usage scenarios.
+-->
 - **Public site (guests)**: Discover rooms, explore the hotel gallery, view detailed room information, check availability by date, and submit booking or contact requests.
 - **Admin dashboard (staff)**: Maintain the room catalog, review and manage bookings, curate gallery images, and respond to guest messages directly via email.
 
@@ -16,11 +20,15 @@ This project is suitable as a **production-ready starter**, **portfolio piece**,
 
 ## Core Features
 
-> _Detailed breakdown of what the system can do for guests and administrators._
+<!--
+Clarity note: Detailed breakdown of what the system can do for guests and administrators.
+-->
 
 ### Guest-Facing Website
 
-> _Pages and flows that are available publicly to hotel guests._
+<!--
+Clarity note: Pages and flows that are available publicly to hotel guests.
+-->
 - **Home page** (`/`)
   - Highlights selected rooms and gallery items.
   - Uses live data from the `rooms` and `galeries` tables.
@@ -38,7 +46,9 @@ This project is suitable as a **production-ready starter**, **portfolio piece**,
 
 ### Admin Dashboard
 
-> _Management capabilities available only to authenticated admin users._
+<!--
+Clarity note: Management capabilities available only to authenticated admin users.
+-->
 - **Rooms management**
   - Create, update, and delete rooms, including:
     - Title, description, price, Wi‑Fi flag, room type.
@@ -58,7 +68,9 @@ This project is suitable as a **production-ready starter**, **portfolio piece**,
 
 ### Technology Stack
 
-> _Key technologies and libraries used to build and run the application._
+<!--
+Clarity note: Key technologies and libraries used to build and run the application.
+-->
 - **Backend**
   - PHP **^8.0.2**
   - Laravel **^9.19**
@@ -81,11 +93,15 @@ This project is suitable as a **production-ready starter**, **portfolio piece**,
 
 ## Getting Started
 
-> _How to set up the project locally for development or evaluation._
+<!--
+Clarity note: How to set up the project locally for development or evaluation.
+-->
 
 ### Prerequisites
 
-> _Software and tools you must have installed before you can run the project._
+<!--
+Clarity note: Software and tools you must have installed before you can run the project.
+-->
 - PHP **>= 8.0.2**
 - Composer
 - MySQL or MariaDB
@@ -93,7 +109,9 @@ This project is suitable as a **production-ready starter**, **portfolio piece**,
 
 ### Installation
 
-> _Step‑by‑step commands to install dependencies, configure the environment, and start the server._
+<!--
+Clarity note: Step‑by‑step commands to install dependencies, configure the environment, and start the server.
+-->
 ```bash
 git clone <REPOSITORY_URL> hotel_project_by_laravel
 cd hotel_project_by_laravel
@@ -117,7 +135,9 @@ Then open `http://127.0.0.1:8000` in your browser.
 
 ### Creating an Admin User
 
-> _How to promote a regular account to an admin so you can access the dashboard._
+<!--
+Clarity note: How to promote a regular account to an admin so you can access the dashboard.
+-->
 1. Visit `/register` and create a user account.
 2. In your database, update that user’s `usertype` field to `admin`.
 3. Log in:
@@ -128,7 +148,9 @@ Then open `http://127.0.0.1:8000` in your browser.
 
 ## Project Structure (Key Components)
 
-> _Orient yourself in the codebase and see where the main responsibilities live._
+<!--
+Clarity note: Orient yourself in the codebase and see where the main responsibilities live.
+-->
 - **Routes**
   - `routes/web.php` – public pages, booking actions, contact form, and admin endpoints.
 - **Controllers**
@@ -145,6 +167,8 @@ Then open `http://127.0.0.1:8000` in your browser.
 
 ## License
 
-> _Legal terms under which you are allowed to use and modify this project._
+<!--
+Clarity note: Legal terms under which you are allowed to use and modify this project.
+-->
 
 This project is open‑source software licensed under the **MIT license** (see `composer.json` for details).
