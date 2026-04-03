@@ -2,6 +2,8 @@
 
 Hotel Management System is a Laravel 9–based web application that provides a modern public website for guests and a secure back‑office dashboard for hotel staff. It streamlines the management of rooms, reservations, image galleries, and customer communication in a single, cohesive platform.
 
+**This project is ready for deployment.** Point it at your production server: set `APP_ENV=production`, `APP_DEBUG=false`, configure database and mail in `.env`, run `php artisan migrate`, `npm run build`, and ensure web root points to `public/` (standard Laravel deployment).
+
 <!--
 Clarity note: This section should quickly explain what the project is and who it is for.
 -->
